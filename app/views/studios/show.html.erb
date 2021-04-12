@@ -4,3 +4,11 @@
 <% @studio.movies.each do |movie| %>
   <p>-<%= movie.title %></p>
 <% end %>
+
+<h3>Actors:</h3>
+<% @studio.movies.each do |movie| %>
+  <% movie.actors.order_by_age_if_working.each do |actor| %>
+    <%= actor.name %>
+    <%= actor.age %><br>
+  <% end %>
+<% end %>
