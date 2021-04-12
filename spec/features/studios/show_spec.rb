@@ -40,7 +40,7 @@ RSpec.describe "studio show", type: :feature do
 
   it "can see actors listed in order from oldest to youngest" do
     visit "/studios/#{@studio_1.id}"
-    save_and_open_page
+    
     expect(@actor_1.name).to appear_before(@actor_2.name)
   end
 

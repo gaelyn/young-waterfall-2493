@@ -8,7 +8,6 @@
 <h3>Actors:</h3>
 <% @studio.movies.each do |movie| %>
   <% movie.actors.order_by_age_if_working.each do |actor| %>
-    <%= actor.name %>
-    <%= actor.age %><br>
+    <%= actor.name %><br>
   <% end %>
 <% end %>
