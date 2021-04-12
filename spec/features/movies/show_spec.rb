@@ -8,11 +8,9 @@ RSpec.describe "movie show", type: :feature do
     @actor_1 = Actor.create!(name: 'Harrison Ford', age: 78, currently_working: true)
     @actor_2 = Actor.create!(name: 'Mark Hamill', age: 70, currently_working: true)
     @actor_3 = Actor.create!(name: 'Daisy Ridley', age: 29, currently_working: true)
-    @actor_4 = Actor.create!(name: 'Carrie Fischer', age: 58, currently_working: false)
     MovieActor.create!(movie: @movie_1, actor: @actor_1)
     MovieActor.create!(movie: @movie_2, actor: @actor_1)
     MovieActor.create!(movie: @movie_2, actor: @actor_2)
-    MovieActor.create!(movie: @movie_2, actor: @actor_4)
   end
 
   it "can see movie's title, creation_year, and genre" do
@@ -25,10 +23,21 @@ RSpec.describe "movie show", type: :feature do
 
   it "can see all actors in the movie" do
     visit "/movies/#{@movie_2.id}"
-    save_and_open_page
+
     expect(page).to have_content(@actor_1.name)
     expect(page).to have_content(@actor_2.name)
-    expect(page).to have_content(@actor_4.name)
     expect(page).not_to have_content(@actor_3.name)
+  end
+
+  it 'can add an actor to movie' do
+    @actor_4 = Actor.create!(name: 'Carrie Fischer', age: 58, currently_working: false)
+
+    visit "/movies/#{@movie_2.id}"
+
+    fill_in 'Name', with: 'Carrie Fischer'
+    click_on 'Submit'
+
+    expect(current_path).to eq("/movies/#{@movie_2.id}")
+    expect(page).to have_content('Carrie Fischer')
   end
 end

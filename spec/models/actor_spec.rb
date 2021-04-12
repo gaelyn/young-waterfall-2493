@@ -17,4 +17,13 @@ RSpec.describe Actor, type: :model do
       end
     end
   end
+
+  describe 'instance methods' do
+    describe '.find_by_name' do
+      it "can find actor with given name" do
+        @actor_1 = Actor.create!(name: 'Harrison Ford', age: 78, currently_working: true)
+        expect(Actor.find_by_name('Harrison Ford')).to eq(@actor_1)  
+      end
+    end
+  end
 end

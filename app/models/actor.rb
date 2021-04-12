@@ -5,4 +5,8 @@ class Actor < ApplicationRecord
   def self.order_by_age_if_working
     where(currently_working: TRUE).order(age: :desc).distinct
   end
+
+  def find_by_name(name)
+    where(name: name)
+  end
 end
